@@ -4,6 +4,7 @@ import 'package:eleven_slots/components/left_side_of_spinner.dart';
 import 'package:eleven_slots/components/right_side_of_spinner.dart';
 import 'package:eleven_slots/components/spinner_button.dart';
 import 'package:eleven_slots/controllers/game_controller.dart';
+import 'package:eleven_slots/controllers/sound_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,10 +28,27 @@ class MainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/images/mute.png",
-                  height: 25.h,
-                  width: 25.w,
+                GetBuilder<SoundController>(
+                  builder: (controller) => GestureDetector(
+                    onTap: () {
+                      if (controller.getIsMute == false) {
+                        controller.setIsMute(true);
+                      } else {
+                        controller.setIsMute(false);
+                      }
+                    },
+                    child: controller.getIsMute == false
+                        ? Image.asset(
+                            "assets/images/volume.png",
+                            height: 25.h,
+                            width: 25.w,
+                          )
+                        : Image.asset(
+                            "assets/images/mute.png",
+                            height: 25.h,
+                            width: 25.w,
+                          ),
+                  ),
                 ),
                 SvgPicture.asset(
                   "assets/images/Logo.svg",
@@ -154,36 +172,13 @@ class MainScreen extends StatelessWidget {
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 // Left Side
-                const LeftSizeOfSpinnerWithCounter(),
+                LeftSizeOfSpinnerWithCounter(),
                 // Button
-                const SpinnerButton(),
+                SpinnerButton(),
                 // Right Size
-                const RightSizeOfSpinnerWithCounter(),
-                // Container(
-                //   height: 90.h,
-                //   width: 110.h,
-                //   decoration: BoxDecoration(
-                //     color: Colors.black54,
-                //     borderRadius: BorderRadius.only(
-                //       topLeft: const Radius.circular(8).r,
-                //       bottomLeft: const Radius.circular(8).r,
-                //     ),
-                //   ),
-                //   child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //       children: [
-                //         Text(
-                //           "win",
-                //           style: TextStyle(
-                //             fontFamily: "Morris",
-                //             fontSize: 18.sp,
-                //             color: const Color(0xff96D700),
-                //           ),
-                //         ),
-                //       ]),
-                // ),
+                RightSizeOfSpinnerWithCounter(),
               ],
             ),
           ),

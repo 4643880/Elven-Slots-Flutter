@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:eleven_slots/config/route.dart';
+import 'package:eleven_slots/controllers/sound_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class GameController extends GetxController {
+  SoundController soundController = Get.find();
   late String _item1,
       _item2,
       _item3,
@@ -72,14 +74,28 @@ class GameController extends GetxController {
         (_item1 == _item5 && _item5 == _item9) ||
         (_item3 == _item5 && _item5 == _item7)) {
       update();
-      final player = AudioPlayer();
-      await player.play(AssetSource("sounds/riseup.mp3"));
+      if (soundController.getIsMute == true) {
+        final player = AudioPlayer();
+        player.setVolume(0);
+        await player.play(AssetSource("sounds/riseup.mp3"));
+      } else {
+        final player = AudioPlayer();
+        player.setVolume(1);
+        await player.play(AssetSource("sounds/riseup.mp3"));
+      }
 
       _score += 10000;
       update();
     } else {
-      final player = AudioPlayer();
-      await player.play(AssetSource("sounds/spin.mp3"));
+      if (soundController.getIsMute == true) {
+        final player = AudioPlayer();
+        player.setVolume(0);
+        await player.play(AssetSource("sounds/spin.mp3"));
+      } else {
+        final player = AudioPlayer();
+        player.setVolume(1);
+        await player.play(AssetSource("sounds/spin.mp3"));
+      }
     }
   }
 
