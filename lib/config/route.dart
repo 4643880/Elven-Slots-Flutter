@@ -1,3 +1,4 @@
+import 'package:eleven_slots/screens/game.dart';
 import 'package:eleven_slots/screens/main_screen.dart';
 import 'package:eleven_slots/screens/splash_screen.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class RouteHelper {
     GetPage(
       name: RouteHelper.routeMainScreen,
       // page: () => ResponsiveView(),
-      page: () => const MainScreen(),
+      page: () => MainScreen(),
     ),
   ];
 }

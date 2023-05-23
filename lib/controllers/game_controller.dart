@@ -2,12 +2,29 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:eleven_slots/config/route.dart';
+import 'package:eleven_slots/controllers/bet_controller.dart';
 import 'package:eleven_slots/controllers/sound_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class GameController extends GetxController {
   SoundController soundController = Get.find();
+  BetController betController = Get.find();
+
+  bool _autoStart = false;
+  bool get getAutoStart => _autoStart;
+  setAutoStart(bool value) {
+    _autoStart = value;
+    update();
+  }
+
+  bool _winner = false;
+  bool get getWinner => _winner;
+  setWinner(bool value) {
+    _winner = value;
+    update();
+  }
+
   late String _item1,
       _item2,
       _item3,
@@ -31,6 +48,10 @@ class GameController extends GetxController {
   String? get getItem8 => _item8;
   String? get getItem9 => _item9;
 
+  List<int> myPrizeValues = [25, 50, 75, 100, 25, 50, 25, 50];
+  late int _prizeValue = 0;
+  int get getPrizeValue => _prizeValue;
+
   List<String> items = [
     "assets/images/item1.png",
     "assets/images/item2.png",
@@ -45,21 +66,13 @@ class GameController extends GetxController {
 
   Future<void> shuffleItems() async {
     _item1 = items[Random().nextInt(items.length)];
-    update();
     _item2 = items[Random().nextInt(items.length)];
-    update();
     _item3 = items[Random().nextInt(items.length)];
-    update();
     _item4 = items[Random().nextInt(items.length)];
-    update();
     _item5 = items[Random().nextInt(items.length)];
-    update();
     _item6 = items[Random().nextInt(items.length)];
-    update();
     _item7 = items[Random().nextInt(items.length)];
-    update();
     _item8 = items[Random().nextInt(items.length)];
-    update();
     _item9 = items[Random().nextInt(items.length)];
     update();
   }
@@ -84,7 +97,12 @@ class GameController extends GetxController {
         await player.play(AssetSource("sounds/riseup.mp3"));
       }
 
-      _score += 10000;
+      _prizeValue =
+          _prizeValue + myPrizeValues[Random().nextInt(myPrizeValues.length)];
+      _winner = true;
+      final player = AudioPlayer();
+      player.setVolume(1);
+      await player.play(AssetSource("sounds/high-score.mp3"));
       update();
     } else {
       if (soundController.getIsMute == true) {
@@ -102,6 +120,23 @@ class GameController extends GetxController {
   @override
   void onInit() async {
     await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
+    await shuffleItems();
+    Future.delayed(Duration(milliseconds: 300));
     update();
     super.onInit();
   }
