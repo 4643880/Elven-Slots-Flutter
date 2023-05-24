@@ -1,14 +1,26 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:eleven_slots/controllers/bet_controller.dart';
 import 'package:eleven_slots/controllers/sound_controller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController {
   SoundController soundController = Get.find();
 
-  bool _temp = true;
+  bool _inProgressSingleIteration = false;
+  bool get getProgressLoopSingleIteration => _inProgressSingleIteration;
+  setProgressSingleIteration(bool value) {
+    _inProgressSingleIteration = value;
+    update();
+  }
+
+  bool _inProgressLoop = false;
+  bool get getProgressLoop => _inProgressLoop;
+  setProgressLoop(bool value) {
+    _inProgressLoop = value;
+    update();
+  }
+
+  bool _temp = false;
   bool get getTemp => _temp;
   setTemp(bool value) {
     _temp = value;

@@ -58,75 +58,16 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                       GestureDetector(
                         onTapCancel: () {},
                         onTap: () async {
-                          // gameController.setTemp(true);
-                          // gameController.setAutoStart(false);
-                          if (gameController.getSwitchButton == false) {
-                            if (gameController.getYouWinScreenValue == false) {
-                              if (betController.getValue >= 5) {
-                                gameController.setAutoStart(true);
-                                gameController.setSwitchButton(true);
-                                betController.setRemainingAmount();
-
-                                while (gameController.getAutoStart ==
-                                    gameController.getTemp) {
-                                  // First Nine Iterations Starts Here
-                                  for (int i = 0; i < 9; i++) {
-                                    await gameController.shuffleItems();
-                                    await Future.delayed(
-                                      const Duration(milliseconds: 300),
-                                    );
-                                    if (gameController.getTemp == false) {
-                                      break;
-                                    }
-                                  }
-                                  final res = await gameController.checkWin();
-                                  if (res == false) {
-                                    gameController.setAutoStart(true);
-                                    // devtools.log("Reached 1");
-                                  } else {
-                                    gameController.setAutoStart(false);
-                                    // gameController.setPrizeValue(0);
-                                    // devtools.log("Reached 2");
-                                  }
-                                  print(res);
-                                  // First Nine Iterations Ends Here
-                                  betController.setRemainingAmount();
-                                  if (gameController.getTemp == false) {
-                                    break;
-                                  }
-                                }
-                              } else {
-                                Get.snackbar(
-                                  "Increase Value",
-                                  "Please increase the value for bet!",
-                                  backgroundColor: const Color(0xff7DCE06),
-                                  colorText: Colors.white,
-                                );
-                              }
+                          if (gameController.getYouWinScreenValue == false) {
+                            if (gameController.getAutoStart == false) {
+                              gameController.setAutoStart(true);
+                              gameController.setTemp(true);
+                              gameController.setSwitchButton(true);
+                            } else {
+                              gameController.setAutoStart(false);
                             }
+                            print(gameController.getAutoStart);
                           }
-                          // else {
-                          //   // gameController.setAutoStart(false);
-                          //   gameController.setAutoStart(false);
-                          //   // gameController.setSwitchButton(false);
-                          //   gameController.setTemp(false);
-                          //   devtools.log("Reached IN Else");
-                          // }
-
-                          // gameController.setAutoStart(false);
-                          // gameController.setTemp(true);
-
-                          // if (gameController.getAutoStart == true) {
-                          //   gameController.setAutoStart(false);
-                          //   for (int i = 0; i <= 1; i++) {
-                          //     await gameController.shuffleItems();
-                          //     await Future.delayed(
-                          //       const Duration(microseconds: 300),
-                          //     );
-                          //     // controller.checkWin();
-                          //     break;
-                          //   }
-                          // }
                         },
                         child: Column(
                           children: [

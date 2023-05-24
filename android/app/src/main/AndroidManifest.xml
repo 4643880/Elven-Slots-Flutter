@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eleven_slots">
    <application
-        android:label="Elven Slots"
+        android:label="Verde Casino"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
