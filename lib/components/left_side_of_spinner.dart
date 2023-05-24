@@ -10,24 +10,23 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90.h,
-      width: 110.h,
-      decoration: BoxDecoration(
-        color: Colors.black54,
-        borderRadius: BorderRadius.only(
-          topRight: const Radius.circular(8).r,
-          bottomRight: const Radius.circular(8).r,
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            // color: Colors.white,
-            width: 23.w,
+    return GetBuilder<BetController>(
+      builder: (controller) => Container(
+        height: 90.h,
+        width: 110.h,
+        decoration: BoxDecoration(
+          color: Colors.black54,
+          borderRadius: BorderRadius.only(
+            topRight: const Radius.circular(8).r,
+            bottomRight: const Radius.circular(8).r,
           ),
-          GetBuilder<BetController>(
-            builder: (controller) => Expanded(
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 23.w,
+            ),
+            Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 3, bottom: 3, right: 4).r,
                 child: Column(
@@ -42,45 +41,38 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
                       ),
                     ),
                     // Counter
-                    Container(
-                      // color: Colors.red,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              controller.setValue(false);
-                              print(controller.getValue.toString());
-                            },
-                            child: Container(
-                              height: 25.h,
-                              width: 25.w,
-                              child: Image.asset("assets/images/decrement.png"),
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            controller.setValue(false);
+                          },
+                          child: SizedBox(
+                            height: 25.h,
+                            width: 25.w,
+                            child: Image.asset("assets/images/decrement.png"),
                           ),
-                          GetBuilder<BetController>(
-                            builder: (controller) => Text(
-                              controller.getValue.toString(),
-                              style: TextStyle(
-                                fontFamily: "Morris",
-                                fontSize: 22.sp,
-                                color: Colors.white,
-                              ),
-                            ),
+                        ),
+                        Text(
+                          controller.getValue.toString(),
+                          style: TextStyle(
+                            fontFamily: "Morris",
+                            fontSize: 22.sp,
+                            color: Colors.white,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              controller.setValue(true);
-                              print(controller.getValue.toString());
-                            },
-                            child: Container(
-                              height: 25.h,
-                              width: 25.w,
-                              child: Image.asset("assets/images/increment.png"),
-                            ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            controller.setValue(true);
+                          },
+                          child: SizedBox(
+                            height: 25.h,
+                            width: 25.w,
+                            child: Image.asset("assets/images/increment.png"),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -94,8 +86,8 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -12,7 +12,6 @@ class BackgroundWidget extends StatelessWidget {
       height: 1.sh,
       width: double.infinity,
       decoration: const BoxDecoration(
-          // color: Colors.red,
           image: DecorationImage(
         image: AssetImage("assets/images/bg.png"),
         fit: BoxFit.cover,

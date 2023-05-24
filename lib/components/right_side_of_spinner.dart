@@ -11,65 +11,60 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GameController>(
-      builder: (controller) => Container(
-        height: 90.h,
-        width: 110.h,
-        decoration: BoxDecoration(
-          color: Colors.black54,
-          borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(8).r,
-            bottomLeft: const Radius.circular(8).r,
+    return GetBuilder<BetController>(
+      builder: (betController) => GetBuilder<GameController>(
+        builder: (gameController) => Container(
+          height: 90.h,
+          width: 110.h,
+          decoration: BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(8).r,
+              bottomLeft: const Radius.circular(8).r,
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3, bottom: 3, left: 4).r,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "win",
-                      style: TextStyle(
-                        fontFamily: "Morris",
-                        fontSize: 18.sp,
-                        color: const Color(0xff96D700),
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3, bottom: 3, left: 4).r,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "win",
+                        style: TextStyle(
+                          fontFamily: "Morris",
+                          fontSize: 18.sp,
+                          color: const Color(0xff96D700),
+                        ),
                       ),
-                    ),
-                    // Counter
-                    Container(
-                      // color: Colors.red,
-                      child: Row(
+                      // Counter
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          GetBuilder<GameController>(
-                            builder: (controller) => Text(
-                              // "\$ ${controller.getWinAmount}",
-                              "\$ ${controller.getPrizeValue.toString()}",
-                              style: TextStyle(
-                                fontFamily: "Morris",
-                                fontSize: 22.sp,
-                                color: Colors.white,
-                              ),
+                          Text(
+                            // "\$ ${controller.getWinAmount}",
+                            "\$ ${gameController.getPrizeValue.toString()}",
+                            style: TextStyle(
+                              fontFamily: "Morris",
+                              fontSize: 22.sp,
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    GetBuilder<BetController>(
-                      builder: (betControlllller) => GestureDetector(
+                      GestureDetector(
                         onTap: () async {
-                          if (controller.getAutoStart == false) {
-                            controller.setAutoStart(true);
+                          if (gameController.getAutoStart == false) {
+                            gameController.setAutoStart(true);
                             for (int i = 0; i < 1000; i++) {
-                              await controller.shuffleItems();
-                              betControlllller.setRemainingAmount();
+                              await gameController.shuffleItems();
+                              betController.setRemainingAmount();
                               await Future.delayed(
                                 const Duration(milliseconds: 300),
                               );
-                              if (controller.getAutoStart == true) {
+                              if (gameController.getAutoStart == true) {
                                 continue;
                               } else {
                                 // controller.checkWin();
@@ -77,10 +72,10 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                               }
                             }
                           }
-                          if (controller.getAutoStart == true) {
-                            controller.setAutoStart(false);
+                          if (gameController.getAutoStart == true) {
+                            gameController.setAutoStart(false);
                             for (int i = 0; i <= 1; i++) {
-                              await controller.shuffleItems();
+                              await gameController.shuffleItems();
                               await Future.delayed(
                                 const Duration(microseconds: 300),
                               );
@@ -91,7 +86,7 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                         },
                         child: Column(
                           children: [
-                            controller.getAutoStart == false
+                            gameController.getAutoStart == false
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 05,
@@ -111,16 +106,15 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              // color: Colors.white,
-              width: 23.w,
-            ),
-          ],
+              Container(
+                width: 23.w,
+              ),
+            ],
+          ),
         ),
       ),
     );

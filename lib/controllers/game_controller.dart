@@ -1,15 +1,12 @@
 import 'dart:math';
-
 import 'package:audioplayers/audioplayers.dart';
-import 'package:eleven_slots/config/route.dart';
 import 'package:eleven_slots/controllers/bet_controller.dart';
 import 'package:eleven_slots/controllers/sound_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class GameController extends GetxController {
   SoundController soundController = Get.find();
-  BetController betController = Get.find();
 
   bool _autoStart = false;
   bool get getAutoStart => _autoStart;
@@ -120,23 +117,7 @@ class GameController extends GetxController {
   @override
   void onInit() async {
     await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
-    await shuffleItems();
-    Future.delayed(Duration(milliseconds: 300));
+    Future.delayed(const Duration(milliseconds: 300));
     update();
     super.onInit();
   }

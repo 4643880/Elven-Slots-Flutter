@@ -1,4 +1,3 @@
-import 'package:eleven_slots/screens/game.dart';
 import 'package:eleven_slots/screens/main_screen.dart';
 import 'package:eleven_slots/screens/splash_screen.dart';
 import 'package:get/get.dart';
@@ -11,13 +10,11 @@ class RouteHelper {
   static List<GetPage> routes = [
     GetPage(
       name: RouteHelper.routeSplash,
-      // page: () => ResponsiveView(),
       page: () => const SplashScreen(),
     ),
     GetPage(
       name: RouteHelper.routeMainScreen,
-      // page: () => ResponsiveView(),
-      page: () => MainScreen(),
+      page: () => const MainScreen(),
     ),
   ];
 }
