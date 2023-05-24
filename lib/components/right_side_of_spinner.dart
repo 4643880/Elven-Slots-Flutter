@@ -58,53 +58,58 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (controller.getAutoStart == false) {
-                          controller.setAutoStart(true);
-                          for (int i = 0; i < 1000; i++) {
-                            await controller.shuffleItems();
-                            await Future.delayed(
-                              const Duration(milliseconds: 300),
-                            );
-                            if (controller.getAutoStart == true) {
-                              continue;
-                            } else {
+                    GetBuilder<BetController>(
+                      builder: (betControlllller) => GestureDetector(
+                        onTap: () async {
+                          if (controller.getAutoStart == false) {
+                            controller.setAutoStart(true);
+                            for (int i = 0; i < 1000; i++) {
+                              await controller.shuffleItems();
+                              betControlllller.setRemainingAmount();
+                              await Future.delayed(
+                                const Duration(milliseconds: 300),
+                              );
+                              if (controller.getAutoStart == true) {
+                                continue;
+                              } else {
+                                // controller.checkWin();
+                                break;
+                              }
+                            }
+                          }
+                          if (controller.getAutoStart == true) {
+                            controller.setAutoStart(false);
+                            for (int i = 0; i <= 1; i++) {
+                              await controller.shuffleItems();
+                              await Future.delayed(
+                                const Duration(microseconds: 300),
+                              );
+                              // controller.checkWin();
                               break;
                             }
                           }
-                        }
-                        if (controller.getAutoStart == true) {
-                          controller.setAutoStart(false);
-                          for (int i = 0; i <= 1; i++) {
-                            await controller.shuffleItems();
-                            await Future.delayed(
-                              const Duration(microseconds: 300),
-                            );
-                            break;
-                          }
-                        }
-                      },
-                      child: Column(
-                        children: [
-                          controller.getAutoStart == false
-                              ? Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 05,
-                                    vertical: 02,
-                                  ).r,
-                                  // color: Colors.red,
-                                  child: Image.asset("assets/images/off.png"),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 05,
-                                    vertical: 02,
-                                  ).r,
-                                  // color: Colors.red,
-                                  child: Image.asset("assets/images/on.png"),
-                                ),
-                        ],
+                        },
+                        child: Column(
+                          children: [
+                            controller.getAutoStart == false
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 05,
+                                      vertical: 02,
+                                    ).r,
+                                    // color: Colors.red,
+                                    child: Image.asset("assets/images/off.png"),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 05,
+                                      vertical: 02,
+                                    ).r,
+                                    // color: Colors.red,
+                                    child: Image.asset("assets/images/on.png"),
+                                  ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
