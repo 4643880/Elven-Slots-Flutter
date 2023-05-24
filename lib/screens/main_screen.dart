@@ -192,6 +192,10 @@ class MainScreen extends StatelessWidget {
                                   // Cross Button
                                   GestureDetector(
                                     onTap: () {
+                                      gameController
+                                          .setYouWinScreenValue(false);
+                                      gameController.setSwitchButton(false);
+                                      gameController.setPrizeValue(0);
                                       gameController.setWinner(false);
                                     },
                                     child: Container(

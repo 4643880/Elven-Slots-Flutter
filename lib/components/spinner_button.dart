@@ -12,9 +12,12 @@ class SpinnerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GameController gameController = GameController();
     return GestureDetector(
       onTap: () async {
-        spinNineTimes();
+        if (gameController.getYouWinScreenValue == false) {
+          spinNineTimes();
+        }
       },
       child: Image.asset(
         "assets/images/button.png",

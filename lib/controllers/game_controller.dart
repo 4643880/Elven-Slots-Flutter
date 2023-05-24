@@ -8,10 +8,31 @@ import 'package:get/get.dart';
 class GameController extends GetxController {
   SoundController soundController = Get.find();
 
+  bool _temp = true;
+  bool get getTemp => _temp;
+  setTemp(bool value) {
+    _temp = value;
+    update();
+  }
+
   bool _autoStart = false;
   bool get getAutoStart => _autoStart;
   setAutoStart(bool value) {
     _autoStart = value;
+    update();
+  }
+
+  bool _switchButton = false;
+  bool get getSwitchButton => _switchButton;
+  setSwitchButton(bool value) {
+    _switchButton = value;
+    update();
+  }
+
+  bool _youWinScreenValue = false;
+  bool get getYouWinScreenValue => _youWinScreenValue;
+  setYouWinScreenValue(bool value) {
+    _youWinScreenValue = value;
     update();
   }
 
@@ -48,6 +69,9 @@ class GameController extends GetxController {
   List<int> myPrizeValues = [25, 50, 75, 100, 25, 50, 25, 50];
   late int _prizeValue = 0;
   int get getPrizeValue => _prizeValue;
+  void setPrizeValue(int value) {
+    _prizeValue = value;
+  }
 
   List<String> items = [
     "assets/images/item1.png",
@@ -74,7 +98,7 @@ class GameController extends GetxController {
     update();
   }
 
-  void checkWin() async {
+  Future<bool> checkWin() async {
     if ((_item1 == _item2 && _item2 == _item3) ||
         (_item4 == _item5 && _item5 == _item6) ||
         (_item7 == _item8 && _item8 == _item9) ||
@@ -93,14 +117,17 @@ class GameController extends GetxController {
         player.setVolume(1);
         await player.play(AssetSource("sounds/riseup.mp3"));
       }
-
+      _prizeValue = 0;
       _prizeValue =
           _prizeValue + myPrizeValues[Random().nextInt(myPrizeValues.length)];
       _winner = true;
       final player = AudioPlayer();
       player.setVolume(1);
       await player.play(AssetSource("sounds/high-score.mp3"));
+      _youWinScreenValue = true;
+      _autoStart = false;
       update();
+      return true;
     } else {
       if (soundController.getIsMute == true) {
         final player = AudioPlayer();
@@ -111,6 +138,7 @@ class GameController extends GetxController {
         player.setVolume(1);
         await player.play(AssetSource("sounds/spin.mp3"));
       }
+      return false;
     }
   }
 

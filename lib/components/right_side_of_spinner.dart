@@ -3,6 +3,7 @@ import 'package:eleven_slots/controllers/game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'dart:developer' as devtools show log;
 
 class RightSizeOfSpinnerWithCounter extends StatelessWidget {
   const RightSizeOfSpinnerWithCounter({
@@ -55,34 +56,77 @@ class RightSizeOfSpinnerWithCounter extends StatelessWidget {
                         ],
                       ),
                       GestureDetector(
+                        onTapCancel: () {},
                         onTap: () async {
-                          if (gameController.getAutoStart == false) {
-                            gameController.setAutoStart(true);
-                            for (int i = 0; i < 1000; i++) {
-                              await gameController.shuffleItems();
-                              betController.setRemainingAmount();
-                              await Future.delayed(
-                                const Duration(milliseconds: 300),
-                              );
-                              if (gameController.getAutoStart == true) {
-                                continue;
+                          // gameController.setTemp(true);
+                          // gameController.setAutoStart(false);
+                          if (gameController.getSwitchButton == false) {
+                            if (gameController.getYouWinScreenValue == false) {
+                              if (betController.getValue >= 5) {
+                                gameController.setAutoStart(true);
+                                gameController.setSwitchButton(true);
+                                betController.setRemainingAmount();
+
+                                while (gameController.getAutoStart ==
+                                    gameController.getTemp) {
+                                  // First Nine Iterations Starts Here
+                                  for (int i = 0; i < 9; i++) {
+                                    await gameController.shuffleItems();
+                                    await Future.delayed(
+                                      const Duration(milliseconds: 300),
+                                    );
+                                    if (gameController.getTemp == false) {
+                                      break;
+                                    }
+                                  }
+                                  final res = await gameController.checkWin();
+                                  if (res == false) {
+                                    gameController.setAutoStart(true);
+                                    // devtools.log("Reached 1");
+                                  } else {
+                                    gameController.setAutoStart(false);
+                                    // gameController.setPrizeValue(0);
+                                    // devtools.log("Reached 2");
+                                  }
+                                  print(res);
+                                  // First Nine Iterations Ends Here
+                                  betController.setRemainingAmount();
+                                  if (gameController.getTemp == false) {
+                                    break;
+                                  }
+                                }
                               } else {
-                                // controller.checkWin();
-                                break;
+                                Get.snackbar(
+                                  "Increase Value",
+                                  "Please increase the value for bet!",
+                                  backgroundColor: const Color(0xff7DCE06),
+                                  colorText: Colors.white,
+                                );
                               }
                             }
                           }
-                          if (gameController.getAutoStart == true) {
-                            gameController.setAutoStart(false);
-                            for (int i = 0; i <= 1; i++) {
-                              await gameController.shuffleItems();
-                              await Future.delayed(
-                                const Duration(microseconds: 300),
-                              );
-                              // controller.checkWin();
-                              break;
-                            }
-                          }
+                          // else {
+                          //   // gameController.setAutoStart(false);
+                          //   gameController.setAutoStart(false);
+                          //   // gameController.setSwitchButton(false);
+                          //   gameController.setTemp(false);
+                          //   devtools.log("Reached IN Else");
+                          // }
+
+                          // gameController.setAutoStart(false);
+                          // gameController.setTemp(true);
+
+                          // if (gameController.getAutoStart == true) {
+                          //   gameController.setAutoStart(false);
+                          //   for (int i = 0; i <= 1; i++) {
+                          //     await gameController.shuffleItems();
+                          //     await Future.delayed(
+                          //       const Duration(microseconds: 300),
+                          //     );
+                          //     // controller.checkWin();
+                          //     break;
+                          //   }
+                          // }
                         },
                         child: Column(
                           children: [

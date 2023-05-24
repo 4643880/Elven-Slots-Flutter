@@ -1,4 +1,5 @@
 import 'package:eleven_slots/controllers/bet_controller.dart';
+import 'package:eleven_slots/controllers/game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GameController gameController = Get.find();
     return GetBuilder<BetController>(
       builder: (controller) => Container(
         height: 90.h,
@@ -46,7 +48,9 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            controller.setValue(false);
+                            if (gameController.getYouWinScreenValue == false) {
+                              controller.setValue(false);
+                            }
                           },
                           child: SizedBox(
                             height: 25.h,
@@ -64,7 +68,9 @@ class LeftSizeOfSpinnerWithCounter extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            controller.setValue(true);
+                            if (gameController.getYouWinScreenValue == false) {
+                              controller.setValue(true);
+                            }
                           },
                           child: SizedBox(
                             height: 25.h,
