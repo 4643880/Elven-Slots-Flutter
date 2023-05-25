@@ -11,24 +11,25 @@ Future<void> spinNineTimes() async {
       if (gameController.getYouWinScreenValue == false) {
         betController.setRemainingAmount();
       }
-      await gameController.shuffleItems();
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
+      await Future.delayed(const Duration(milliseconds: 300));
+      await gameController.shuffleItemsTemporary();
       await Future.delayed(const Duration(milliseconds: 300));
       await gameController.shuffleItems();
       await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
-      await gameController.shuffleItems();
-      await Future.delayed(const Duration(milliseconds: 300));
+
       gameController.checkWin();
       // print("clicking");
     }

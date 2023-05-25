@@ -110,15 +110,27 @@ class GameController extends GetxController {
     update();
   }
 
+  Future<void> shuffleItemsTemporary() async {
+    items.shuffle();
+    _item1 = items[0];
+    _item2 = items[1];
+    _item3 = items[2];
+    _item4 = items[3];
+    _item5 = items[4];
+    _item6 = items[5];
+    _item7 = items[6];
+    _item8 = items[7];
+    _item9 = items[8];
+    update();
+  }
+
   Future<bool> checkWin() async {
     if ((_item1 == _item2 && _item2 == _item3) ||
         (_item4 == _item5 && _item5 == _item6) ||
         (_item7 == _item8 && _item8 == _item9) ||
         (_item1 == _item4 && _item4 == _item7) ||
         (_item2 == _item5 && _item5 == _item8) ||
-        (_item3 == _item6 && _item6 == _item9) ||
-        (_item1 == _item5 && _item5 == _item9) ||
-        (_item3 == _item5 && _item5 == _item7)) {
+        (_item3 == _item6 && _item6 == _item9)) {
       update();
       if (soundController.getIsMute == true) {
         final player = AudioPlayer();
@@ -136,6 +148,7 @@ class GameController extends GetxController {
       final player = AudioPlayer();
       player.setVolume(1);
       await player.play(AssetSource("sounds/high-score.mp3"));
+      await Future.delayed(const Duration(seconds: 3));
       _youWinScreenValue = true;
       _autoStart = false;
       update();

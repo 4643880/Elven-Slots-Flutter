@@ -36,7 +36,10 @@ class SpinnerButton extends StatelessWidget {
                       gameController.setSwitchButton(true);
                       // First Nine Iterations Starts Here
                       for (int i = 0; i < 9; i++) {
-                        await gameController.shuffleItems();
+                        await gameController.shuffleItemsTemporary();
+                        if (i >= 8) {
+                          await gameController.shuffleItems();
+                        }
                         await Future.delayed(
                           const Duration(milliseconds: 300),
                         );
@@ -63,6 +66,7 @@ class SpinnerButton extends StatelessWidget {
                     }
                     gameController.setProgressLoop(false);
                   } else {
+                    gameController.setProgressLoop(false);
                     Get.snackbar(
                       "Increase Value",
                       "Please increase the value for bet!",
