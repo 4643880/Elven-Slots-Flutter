@@ -127,10 +127,7 @@ class GameController extends GetxController {
   Future<bool> checkWin() async {
     if ((_item1 == _item2 && _item2 == _item3) ||
         (_item4 == _item5 && _item5 == _item6) ||
-        (_item7 == _item8 && _item8 == _item9) ||
-        (_item1 == _item4 && _item4 == _item7) ||
-        (_item2 == _item5 && _item5 == _item8) ||
-        (_item3 == _item6 && _item6 == _item9)) {
+        (_item7 == _item8 && _item8 == _item9)) {
       update();
       if (soundController.getIsMute == true) {
         final player = AudioPlayer();
